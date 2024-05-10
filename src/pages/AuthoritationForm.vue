@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div class="img_container">
-      <img src="27f32f15-9522-4019-82e8-68bb39b25cc3.svg" alt="imagen" />
+      <img src="src\assets\Bird.svg" alt="imagen" />
     </div>
     <div class="auth_container">
       <div class="login" v-if="showLogin">
@@ -48,6 +48,7 @@ export default {
 
 .container {
   display: flex;
+  flex-direction: row;
   height: 100vh; /* Ajusta la altura al 100% del viewport */
   background-color: #6ab0f587;
   overflow: hidden;

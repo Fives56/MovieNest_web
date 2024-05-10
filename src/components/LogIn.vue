@@ -1,5 +1,5 @@
 <template>
-  <h2 class="title">Log-In</h2>
+  <h3 class="title">Log-In</h3>
   <q-form @submit.prevent="onSubmit" @reset="onReset" class="container_form">
     <q-input
       filled
@@ -71,6 +71,11 @@ export default {
 </script>
 
 <style>
+.title {
+  text-align: center;
+  color: #1976d2;
+  padding: 15px;
+}
 .container_form {
   display: flex;
   flex-direction: column;

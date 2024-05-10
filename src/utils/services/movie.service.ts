@@ -1,37 +1,39 @@
 import axios from 'axios';
-import { Movie, Genre } from '../../components/models';
+import { routes } from '../constants/route.constant';
+import { showError } from 'app/src/utils/services/handlerError.service';
 
-async function getMovies() {
-  axios
-    .get('/movies')
-    .then((response) => {
-      const movies: Movie[] = response.data.map((movie: Movie) => ({
-        id: movie.id,
-        video: {
-          id: movie.video.id,
-          key: movie.video.key,
-          site: movie.video.site,
-        },
-        genres: movie.genres.map((genre: Genre) => ({ name: genre.name })),
-        tmdb_id: movie.tmdb_id,
-        title: movie.title,
-        original_title: movie.original_title,
-        adult: movie.adult,
-        backdrop_path: movie.backdrop_path,
-        original_language: movie.original_language,
-        overview: movie.overview,
-        popularity: movie.popularity,
-        poster_path: movie.poster_path,
-        release_date: movie.release_date,
-        vote_average: movie.vote_average,
-        vote_count: movie.vote_count,
-      }));
 
-      return movies;
+/**
+ * @param page number - the number of page
+ * @param limit number - the limit of objects in the list
+ * @param genre string - the genre of the movie
+ * @param pagelimit number - max number of pages
+ * @returns a movie list
+ */
+async function getMovies(page = 1, limit = 10, genre = '', pagelimit = 7) {
+  const token = localStorage.getItem('key');
+  const config = token ? { headers: { Authorization: `Token ${token}` } } : {};
+  const genres = genre ? `&genre=${genre}` : '';
+  if (page > pagelimit) {
+    showError('There are no more videos to load');
+    return { count: 0, results: [] };
+  }
+
+  const response = await axios
+    .get(
+      `${process.env.API_URL}${routes['movies'].route}?page=${page}&limit=${limit}${genres}`,
+      config
+    )
+    .then((res) => {
+      if (res.data.count == 0) {
+        showError(`there are no videos of the ${genre} genre`);
+      }
+      return res;
     })
     .catch((error) => {
-      console.error(error);
+      throw error;
     });
+  return response.data;
 }
 
 export { getMovies };

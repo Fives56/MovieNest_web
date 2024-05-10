@@ -5,4 +5,13 @@ export const routes = {
   singUp: {
     route: '/user/register/',
   },
+  userDetails: {
+    route: '/user',
+  },
+  updateUser: {
+    route: '/user/update/',
+  },
+  movies: {
+    route: '/movies',
+  },
 };

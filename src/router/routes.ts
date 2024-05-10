@@ -5,9 +5,17 @@ const routes: RouteRecordRaw[] = [
     path: '/',
     component: () => import('layouts/MainLayout.vue'),
     children: [
-      { path: '', redirect: '/home' }, // Redirecciona a '/home' cuando el path es ''
-      { path: 'home', component: () => import('pages/IndexPage.vue') }, // Asegúrate de tener una ruta para '/home'
-      { path: 'login', component: () => import('pages/AuthoritationForm.vue') },
+      { path: '', redirect: '/feed' },
+      {
+        path: 'login',
+        name: 'login',
+        component: () => import('pages/AuthoritationForm.vue'),
+      },
+      {
+        path: 'feed/:genre?',
+        name: 'feed',
+        component: () => import('pages/VideoFeed.vue'),
+      },
     ],
   },
 
