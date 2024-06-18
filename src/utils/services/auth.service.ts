@@ -38,7 +38,6 @@ async function logIn(config: any, route: any) {
     });
 }
 /**
- *
  * @param config object - User data
  * @param route route - vue router
  */
@@ -59,7 +58,7 @@ async function singUp(config: any, route: any) {
 }
 
 /**
- * Get a user data
+ * Get user data
  * @returns a object with the user data
  */
 async function userDetails() {
@@ -84,7 +83,7 @@ async function userDetails() {
 }
 
 /**
- * Update a current user
+ * Update current user
  * @param update object - the new user data
  * @returns
  */

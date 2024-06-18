@@ -14,4 +14,7 @@ export const routes = {
   movies: {
     route: '/movies',
   },
+  newMovies: {
+    route: '/movies/new_movies',
+  },
 };

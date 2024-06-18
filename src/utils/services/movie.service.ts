@@ -2,7 +2,6 @@ import axios from 'axios';
 import { routes } from '../constants/route.constant';
 import { showError } from 'app/src/utils/services/handlerError.service';
 
-
 /**
  * @param page number - the number of page
  * @param limit number - the limit of objects in the list
@@ -15,8 +14,18 @@ async function getMovies(page = 1, limit = 10, genre = '', pagelimit = 7) {
   const config = token ? { headers: { Authorization: `Token ${token}` } } : {};
   const genres = genre ? `&genre=${genre}` : '';
   if (page > pagelimit) {
-    showError('There are no more videos to load');
-    return { count: 0, results: [] };
+    const response = await axios
+      .get(`${process.env.API_URL}${routes['movies'].route}`)
+      .then((res) => {
+        if (res.data.count == 0) {
+          showError('there are no more movies');
+        }
+        return res;
+      })
+      .catch((error) => {
+        throw error;
+      });
+    return response.data;
   }
 
   const response = await axios
